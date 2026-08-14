@@ -15,12 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import geometry.Donut;
+import geometry.Point;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DntFrameStack extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private DefaultListModel<String> donutListModel = new DefaultListModel<String>();
+	private DefaultListModel<Donut> donutListModel = new DefaultListModel<Donut>();
+	private DntDialogStack dialog = new DntDialogStack();
 
 	/**
 	 * Launch the application.
@@ -69,7 +74,7 @@ public class DntFrameStack extends JFrame {
 		scrollDonuts.setBorder(new EmptyBorder(10, 10, 10, 10));
 		pnlList.add(scrollDonuts, BorderLayout.CENTER);
 
-		JList<String> listDonuts = new JList<String>();
+		JList<Donut> listDonuts = new JList<Donut>();
 		listDonuts.setModel(donutListModel);
 		listDonuts.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		scrollDonuts.setViewportView(listDonuts);
@@ -79,6 +84,28 @@ public class DntFrameStack extends JFrame {
 		contentPane.add(pnlActions, BorderLayout.SOUTH);
 
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				dialog.setVisible(true);
+
+				if (dialog.isOk()) {
+					int x = Integer.parseInt(dialog.getFldCenterX().getText());
+					int y = Integer.parseInt(dialog.getFldCenterY().getText());
+					int outer = Integer.parseInt(dialog.getFldOuterRadius().getText());
+					int inner = Integer.parseInt(dialog.getFldInnerRadius().getText());
+
+					Donut donut = new Donut(new Point(x, y), outer, inner);
+					donutListModel.add(0, donut);
+
+					dialog.getFldCenterX().setText("");
+					dialog.getFldCenterY().setText("");
+					dialog.getFldOuterRadius().setText("");
+					dialog.getFldInnerRadius().setText("");
+					dialog.setOk(false);
+				}
+			}
+		});
 		btnAdd.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		btnAdd.setBackground(new Color(212, 178, 167));
 		btnAdd.setBorder(BorderFactory.createCompoundBorder(
