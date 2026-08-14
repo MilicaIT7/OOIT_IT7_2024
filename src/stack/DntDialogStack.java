@@ -12,9 +12,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DntDialogStack extends JDialog {
 
@@ -24,6 +27,7 @@ public class DntDialogStack extends JDialog {
 	private JTextField fldCenterY;
 	private JTextField fldOuterRadius;
 	private JTextField fldInnerRadius;
+	private boolean isOk;
 
 	/**
 	 * Launch the application.
@@ -165,6 +169,44 @@ public class DntDialogStack extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField[] fields = { fldCenterX, fldCenterY, fldOuterRadius, fldInnerRadius };
+				for (JTextField field : fields) {
+					if (field.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "All fields must be filled in.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
+
+				try {
+					Integer.parseInt(fldCenterX.getText());
+					Integer.parseInt(fldCenterY.getText());
+					int outer = Integer.parseInt(fldOuterRadius.getText());
+					int inner = Integer.parseInt(fldInnerRadius.getText());
+
+					if (outer <= 0 || inner <= 0) {
+						JOptionPane.showMessageDialog(null, "Radius values must be greater than zero.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					if (outer <= inner) {
+						JOptionPane.showMessageDialog(null, "Outer radius must be larger than inner radius.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					isOk = true;
+					setVisible(false);
+
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "All fields must contain valid whole numbers.",
+							"Invalid input", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		okButton.setBackground(new Color(212, 178, 167));
 		okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		okButton.setBorder(BorderFactory.createCompoundBorder(
@@ -174,7 +216,13 @@ public class DntDialogStack extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
+		
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		cancelButton.setBackground(new Color(212, 178, 167));
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		cancelButton.setBorder(BorderFactory.createCompoundBorder(
@@ -183,6 +231,46 @@ public class DntDialogStack extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
+	}
+
+	public JTextField getFldCenterX() {
+		return fldCenterX;
+	}
+
+	public void setFldCenterX(JTextField fldCenterX) {
+		this.fldCenterX = fldCenterX;
+	}
+
+	public JTextField getFldCenterY() {
+		return fldCenterY;
+	}
+
+	public void setFldCenterY(JTextField fldCenterY) {
+		this.fldCenterY = fldCenterY;
+	}
+
+	public JTextField getFldOuterRadius() {
+		return fldOuterRadius;
+	}
+
+	public void setFldOuterRadius(JTextField fldOuterRadius) {
+		this.fldOuterRadius = fldOuterRadius;
+	}
+
+	public JTextField getFldInnerRadius() {
+		return fldInnerRadius;
+	}
+
+	public void setFldInnerRadius(JTextField fldInnerRadius) {
+		this.fldInnerRadius = fldInnerRadius;
+	}
+
+	public boolean isOk() {
+		return isOk;
+	}
+
+	public void setOk(boolean isOk) {
+		this.isOk = isOk;
 	}
 
 }
