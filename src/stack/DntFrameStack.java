@@ -11,8 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import geometry.Donut;
@@ -114,6 +116,32 @@ public class DntFrameStack extends JFrame {
 		pnlActions.add(btnAdd);
 
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (donutListModel.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Stack is empty.", "Information",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				Donut donutToRemove = donutListModel.get(0);
+				fillDialogWithDonut(donutToRemove);
+				setDialogFieldsEnabled(false);
+
+				dialog.setVisible(true);
+
+				if (dialog.isOk()) {
+					donutListModel.remove(0);
+				}
+
+				setDialogFieldsEnabled(true);
+				dialog.getFldCenterX().setText("");
+				dialog.getFldCenterY().setText("");
+				dialog.getFldOuterRadius().setText("");
+				dialog.getFldInnerRadius().setText("");
+				dialog.setOk(false);
+			}
+		});
 		btnDelete.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		btnDelete.setBackground(new Color(212, 178, 167));
 		btnDelete.setBorder(BorderFactory.createCompoundBorder(
@@ -121,6 +149,21 @@ public class DntFrameStack extends JFrame {
 				BorderFactory.createEmptyBorder(4, 12, 4, 12)));
 		pnlActions.add(btnDelete);
 
+	}
+	
+	private void fillDialogWithDonut(Donut donut) {
+		dialog.getFldCenterX().setText(Integer.toString(donut.getCenter().getXCoord()));
+		dialog.getFldCenterY().setText(Integer.toString(donut.getCenter().getYCoord()));
+		dialog.getFldOuterRadius().setText(Integer.toString(donut.getRadius()));
+		dialog.getFldInnerRadius().setText(Integer.toString(donut.getInnerRadius()));
+	}
+
+	private void setDialogFieldsEnabled(boolean enabled) {
+		JTextField[] fields = { dialog.getFldCenterX(), dialog.getFldCenterY(),
+				dialog.getFldOuterRadius(), dialog.getFldInnerRadius() };
+		for (JTextField field : fields) {
+			field.setEnabled(enabled);
+		}
 	}
 
 }
