@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -114,6 +115,28 @@ public class DntFrameSort extends JFrame {
 		pnlActions.add(btnAdd);
 
 		JButton btnSort = new JButton("Sort");
+		btnSort.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (donutListModel.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "List is empty.", "Information",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				for (int i = 0; i < donutListModel.size() - 1; i++) {
+				    for (int j = 0; j < donutListModel.size() - i - 1; j++) {
+				        Donut current = donutListModel.get(j);
+				        Donut next = donutListModel.get(j + 1);
+				        if (current.compareTo(next) < 0) {
+				            donutListModel.remove(j);
+				            donutListModel.add(j, next);
+				            donutListModel.remove(j + 1);
+				            donutListModel.add(j + 1, current);
+						}
+					}
+				}
+			}
+		});
 		btnSort.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		btnSort.setBackground(new Color(126, 146, 138));
 		btnSort.setBorder(BorderFactory.createCompoundBorder(
