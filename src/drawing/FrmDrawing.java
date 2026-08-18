@@ -15,11 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import geometry.Point;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class FrmDrawing extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private DlgPoint dialogPoint = new DlgPoint();
 	private JPanel pnlDrawingArea;
 	private JPanel pnlActions;
 	private JPanel pnlTitle;
@@ -117,6 +123,28 @@ public class FrmDrawing extends JFrame {
 		pnlShapes.add(tglbtnDonut);
 		
 		PnlDrawing pnlDrawing = new PnlDrawing();
+		pnlDrawing.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (tglbtnPoint.isSelected()) {
+					dialogPoint.getFldX().setText(Integer.toString(e.getX()));
+					dialogPoint.getFldY().setText(Integer.toString(e.getY()));
+
+					dialogPoint.setVisible(true);
+
+					if (dialogPoint.isOk()) {
+						int x = Integer.parseInt(dialogPoint.getFldX().getText());
+						int y = Integer.parseInt(dialogPoint.getFldY().getText());
+
+						Point point = new Point(x, y);
+						pnlDrawing.getShapes().add(point);
+						pnlDrawing.repaint();
+					}
+
+					dialogPoint.setOk(false);
+				}
+			}
+		});
 		pnlDrawingArea.add(pnlDrawing, BorderLayout.CENTER);
 
 		pnlActions = new JPanel();
