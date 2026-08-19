@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import geometry.Line;
 import geometry.Point;
 
 import java.awt.event.MouseAdapter;
@@ -26,6 +27,8 @@ public class FrmDrawing extends JFrame {
 	private JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private DlgPoint dialogPoint = new DlgPoint();
+	private DlgLine dialogLine = new DlgLine();
+	private Point lineStartPoint = null;
 	private JPanel pnlDrawingArea;
 	private JPanel pnlActions;
 	private JPanel pnlTitle;
@@ -126,6 +129,7 @@ public class FrmDrawing extends JFrame {
 		pnlDrawing.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				if (tglbtnPoint.isSelected()) {
 					dialogPoint.getFldX().setText(Integer.toString(e.getX()));
 					dialogPoint.getFldY().setText(Integer.toString(e.getY()));
@@ -142,6 +146,33 @@ public class FrmDrawing extends JFrame {
 					}
 
 					dialogPoint.setOk(false);
+				}
+				
+				if (tglbtnLine.isSelected()) {
+					if (lineStartPoint == null) {
+						lineStartPoint = new Point(e.getX(), e.getY());
+					} else {
+						dialogLine.getFldStartX().setText(Integer.toString(lineStartPoint.getXCoord()));
+						dialogLine.getFldStartY().setText(Integer.toString(lineStartPoint.getYCoord()));
+						dialogLine.getFldEndX().setText(Integer.toString(e.getX()));
+						dialogLine.getFldEndY().setText(Integer.toString(e.getY()));
+
+						dialogLine.setVisible(true);
+
+						if (dialogLine.isOk()) {
+							int startX = Integer.parseInt(dialogLine.getFldStartX().getText());
+							int startY = Integer.parseInt(dialogLine.getFldStartY().getText());
+							int endX = Integer.parseInt(dialogLine.getFldEndX().getText());
+							int endY = Integer.parseInt(dialogLine.getFldEndY().getText());
+
+							Line line = new Line(new Point(startX, startY), new Point(endX, endY));
+							pnlDrawing.getShapes().add(line);
+							pnlDrawing.repaint();
+						}
+
+						dialogLine.setOk(false);
+						lineStartPoint = null;
+					}
 				}
 			}
 		});
