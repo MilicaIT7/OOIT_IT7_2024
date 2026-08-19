@@ -12,9 +12,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DlgLine extends JDialog {
 
@@ -24,6 +27,7 @@ public class DlgLine extends JDialog {
 	private JTextField fldStartY;
 	private JTextField fldEndX;
 	private JTextField fldEndY;
+	private boolean isOk;
 
 	/**
 	 * Launch the application.
@@ -165,6 +169,32 @@ public class DlgLine extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField[] fields = { fldStartX, fldStartY, fldEndX, fldEndY };
+				for (JTextField field : fields) {
+					if (field.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Coordinates must be entered.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
+
+				try {
+					Integer.parseInt(fldStartX.getText());
+					Integer.parseInt(fldStartY.getText());
+					Integer.parseInt(fldEndX.getText());
+					Integer.parseInt(fldEndY.getText());
+
+					isOk = true;
+					setVisible(false);
+
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Coordinates must be whole numbers.",
+							"Invalid input", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		okButton.setBackground(new Color(132, 161, 196));
 		okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		okButton.setBorder(BorderFactory.createCompoundBorder(
@@ -175,6 +205,11 @@ public class DlgLine extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		cancelButton.setBackground(new Color(132, 161, 196));
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		cancelButton.setBorder(BorderFactory.createCompoundBorder(
@@ -183,6 +218,46 @@ public class DlgLine extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
+	}
+
+	public JTextField getFldStartX() {
+		return fldStartX;
+	}
+
+	public void setFldStartX(JTextField fldStartX) {
+		this.fldStartX = fldStartX;
+	}
+
+	public JTextField getFldStartY() {
+		return fldStartY;
+	}
+
+	public void setFldStartY(JTextField fldStartY) {
+		this.fldStartY = fldStartY;
+	}
+
+	public JTextField getFldEndX() {
+		return fldEndX;
+	}
+
+	public void setFldEndX(JTextField fldEndX) {
+		this.fldEndX = fldEndX;
+	}
+
+	public JTextField getFldEndY() {
+		return fldEndY;
+	}
+
+	public void setFldEndY(JTextField fldEndY) {
+		this.fldEndY = fldEndY;
+	}
+
+	public boolean isOk() {
+		return isOk;
+	}
+
+	public void setOk(boolean isOk) {
+		this.isOk = isOk;
 	}
 
 }
