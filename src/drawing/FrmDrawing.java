@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import geometry.Line;
 import geometry.Point;
+import geometry.Rectangle;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -29,6 +30,7 @@ public class FrmDrawing extends JFrame {
 	private DlgPoint dialogPoint = new DlgPoint();
 	private DlgLine dialogLine = new DlgLine();
 	private Point lineStartPoint = null;
+	private DlgRectangle dialogRectangle = new DlgRectangle();
 	private JPanel pnlDrawingArea;
 	private JPanel pnlActions;
 	private JPanel pnlTitle;
@@ -174,6 +176,30 @@ public class FrmDrawing extends JFrame {
 						lineStartPoint = null;
 					}
 				}
+				
+				if (tglbtnRectangle.isSelected()) {
+					dialogRectangle.getFldX().setText(Integer.toString(e.getX()));
+					dialogRectangle.getFldY().setText(Integer.toString(e.getY()));
+
+					dialogRectangle.setVisible(true);
+
+					if (dialogRectangle.isOk()) {
+						int x = Integer.parseInt(dialogRectangle.getFldX().getText());
+						int y = Integer.parseInt(dialogRectangle.getFldY().getText());
+						int width = Integer.parseInt(dialogRectangle.getFldWidth().getText());
+						int height = Integer.parseInt(dialogRectangle.getFldHeight().getText());
+
+						Rectangle rectangle = new Rectangle(new Point(x, y), width, height);
+						pnlDrawing.getShapes().add(rectangle);
+						pnlDrawing.repaint();
+
+						dialogRectangle.getFldWidth().setText("");
+						dialogRectangle.getFldHeight().setText("");
+					}
+
+					dialogRectangle.setOk(false);
+				}
+
 			}
 		});
 		pnlDrawingArea.add(pnlDrawing, BorderLayout.CENTER);
