@@ -12,9 +12,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DlgRectangle extends JDialog {
 
@@ -24,6 +27,7 @@ public class DlgRectangle extends JDialog {
 	private JTextField fldY;
 	private JTextField fldWidth;
 	private JTextField fldHeight;
+	private boolean isOk;
 
 	/**
 	 * Launch the application.
@@ -165,6 +169,38 @@ public class DlgRectangle extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField[] fields = { fldX, fldY, fldWidth, fldHeight };
+				for (JTextField field : fields) {
+					if (field.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "All fields must be filled in.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
+
+				try {
+					Integer.parseInt(fldX.getText());
+					Integer.parseInt(fldY.getText());
+					int width = Integer.parseInt(fldWidth.getText());
+					int height = Integer.parseInt(fldHeight.getText());
+
+					if (width <= 0 || height <= 0) {
+						JOptionPane.showMessageDialog(null, "Width and height must be greater than zero.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					isOk = true;
+					setVisible(false);
+
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "All fields must contain valid whole numbers.",
+							"Invalid input", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		okButton.setBackground(new Color(132, 161, 196));
 		okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		okButton.setBorder(BorderFactory.createCompoundBorder(
@@ -175,6 +211,11 @@ public class DlgRectangle extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		cancelButton.setBackground(new Color(132, 161, 196));
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		cancelButton.setBorder(BorderFactory.createCompoundBorder(
@@ -183,6 +224,46 @@ public class DlgRectangle extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
+	}
+
+	public JTextField getFldX() {
+		return fldX;
+	}
+
+	public void setFldX(JTextField fldX) {
+		this.fldX = fldX;
+	}
+
+	public JTextField getFldY() {
+		return fldY;
+	}
+
+	public void setFldY(JTextField fldY) {
+		this.fldY = fldY;
+	}
+
+	public JTextField getFldWidth() {
+		return fldWidth;
+	}
+
+	public void setFldWidth(JTextField fldWidth) {
+		this.fldWidth = fldWidth;
+	}
+
+	public JTextField getFldHeight() {
+		return fldHeight;
+	}
+
+	public void setFldHeight(JTextField fldHeight) {
+		this.fldHeight = fldHeight;
+	}
+
+	public boolean isOk() {
+		return isOk;
+	}
+
+	public void setOk(boolean isOk) {
+		this.isOk = isOk;
 	}
 
 }
