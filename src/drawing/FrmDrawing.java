@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import geometry.Circle;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
@@ -31,6 +32,7 @@ public class FrmDrawing extends JFrame {
 	private DlgLine dialogLine = new DlgLine();
 	private Point lineStartPoint = null;
 	private DlgRectangle dialogRectangle = new DlgRectangle();
+	private DlgCircle dialogCircle = new DlgCircle();
 	private JPanel pnlDrawingArea;
 	private JPanel pnlActions;
 	private JPanel pnlTitle;
@@ -198,6 +200,27 @@ public class FrmDrawing extends JFrame {
 					}
 
 					dialogRectangle.setOk(false);
+				}
+				
+				if (tglbtnCircle.isSelected()) {
+					dialogCircle.getFldX().setText(Integer.toString(e.getX()));
+					dialogCircle.getFldY().setText(Integer.toString(e.getY()));
+
+					dialogCircle.setVisible(true);
+
+					if (dialogCircle.isOk()) {
+						int x = Integer.parseInt(dialogCircle.getFldX().getText());
+						int y = Integer.parseInt(dialogCircle.getFldY().getText());
+						int radius = Integer.parseInt(dialogCircle.getFldRadius().getText());
+
+						Circle circle = new Circle(new Point(x, y), radius);
+						pnlDrawing.getShapes().add(circle);
+						pnlDrawing.repaint();
+
+						dialogCircle.getFldRadius().setText("");
+					}
+
+					dialogCircle.setOk(false);
 				}
 
 			}
