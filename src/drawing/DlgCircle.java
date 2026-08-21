@@ -12,9 +12,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DlgCircle extends JDialog {
 
@@ -23,6 +26,7 @@ public class DlgCircle extends JDialog {
 	private JTextField fldX;
 	private JTextField fldY;
 	private JTextField fldRadius;
+	private boolean isOk;
 
 	/**
 	 * Launch the application.
@@ -137,6 +141,37 @@ public class DlgCircle extends JDialog {
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
 		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField[] fields = { fldX, fldY, fldRadius };
+				for (JTextField field : fields) {
+					if (field.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "All fields must be filled in.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
+
+				try {
+					Integer.parseInt(fldX.getText());
+					Integer.parseInt(fldY.getText());
+					int radius = Integer.parseInt(fldRadius.getText());
+
+					if (radius <= 0) {
+						JOptionPane.showMessageDialog(null, "Radius must be greater than zero.",
+								"Invalid input", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					isOk = true;
+					setVisible(false);
+
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "All fields must contain valid whole numbers.",
+							"Invalid input", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		okButton.setBackground(new Color(132, 161, 196));
 		okButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		okButton.setBorder(BorderFactory.createCompoundBorder(
@@ -147,6 +182,11 @@ public class DlgCircle extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 		cancelButton.setBackground(new Color(132, 161, 196));
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		cancelButton.setBorder(BorderFactory.createCompoundBorder(
@@ -155,6 +195,38 @@ public class DlgCircle extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
+	}
+
+	public JTextField getFldX() {
+		return fldX;
+	}
+
+	public void setFldX(JTextField fldX) {
+		this.fldX = fldX;
+	}
+
+	public JTextField getFldY() {
+		return fldY;
+	}
+
+	public void setFldY(JTextField fldY) {
+		this.fldY = fldY;
+	}
+
+	public JTextField getFldRadius() {
+		return fldRadius;
+	}
+
+	public void setFldRadius(JTextField fldRadius) {
+		this.fldRadius = fldRadius;
+	}
+
+	public boolean isOk() {
+		return isOk;
+	}
+
+	public void setOk(boolean isOk) {
+		this.isOk = isOk;
 	}
 
 }
