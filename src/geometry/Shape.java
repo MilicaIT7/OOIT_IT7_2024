@@ -1,9 +1,11 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public abstract class Shape implements Moveable, Comparable{
 	protected boolean selected;
+	protected Color edgeColor = Color.BLACK;
 
 	public Shape() {
 
@@ -27,6 +29,14 @@ public abstract class Shape implements Moveable, Comparable{
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	public Color getEdgeColor() {
+		return edgeColor;
+	}
+
+	public void setEdgeColor(Color edgeColor) {
+		this.edgeColor = edgeColor;
 	}
 	
 

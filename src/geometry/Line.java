@@ -48,13 +48,14 @@ public class Line extends Shape{
 	}
 	
 	public void draw(Graphics g) {
+		g.setColor(edgeColor);
 		g.drawLine(startPoint.getXCoord(), startPoint.getYCoord(),
 				endPoint.getXCoord(), endPoint.getYCoord());
 		if(isSelected()) {
 			g.setColor(Color.BLUE);
 			g.drawRect(startPoint.getXCoord()-2, startPoint.getYCoord()-2, 4, 4);
 			g.drawRect(endPoint.getXCoord()-2, endPoint.getYCoord()-2, 4, 4);
-			g.setColor(Color.black);}
+			g.setColor(edgeColor);}
 	}
 	
 

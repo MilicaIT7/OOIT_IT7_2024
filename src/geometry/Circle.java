@@ -49,6 +49,7 @@ public class Circle extends Shape{
 	
 	@Override
 	public void draw(Graphics g) {
+		g.setColor(edgeColor);
 		g.drawOval(center.getXCoord()-radius,
 				center.getYCoord() - radius, 2* radius, 2*radius);
 		if (isSelected()) {
@@ -58,7 +59,7 @@ public class Circle extends Shape{
 			g.drawRect(center.getXCoord() + radius - 2, center.getYCoord() - 2, 4, 4);
 			g.drawRect(center.getXCoord() - 2, center.getYCoord() - radius - 2, 4, 4);
 			g.drawRect(center.getXCoord() - 2, center.getYCoord() + radius - 2, 4, 4);
-			g.setColor(Color.black);
+			g.setColor(edgeColor);
 		}
 	}
 	

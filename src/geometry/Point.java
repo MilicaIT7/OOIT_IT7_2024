@@ -57,13 +57,14 @@ public class Point extends Shape{
 	}
 	
 	public void draw(Graphics g) {
+		g.setColor(edgeColor);
 		g.drawLine(xCoord-2, yCoord, xCoord+2, yCoord);
 		g.drawLine(xCoord, yCoord-2, xCoord, yCoord+2);
 		
 		if(selected) {
 			g.setColor(Color.blue);
 			g.drawRect(xCoord-2, yCoord-2, 4, 4);
-			g.setColor(Color.black);
+			g.setColor(edgeColor);
 		}
 	}
 	

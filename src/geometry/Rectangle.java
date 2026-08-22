@@ -61,6 +61,7 @@ public class Rectangle extends Shape{
 	}
 	
 	public void draw(Graphics g) {
+		g.setColor(edgeColor);
 		g.drawRect(upperLeftPoint.getXCoord(),
 				upperLeftPoint.getYCoord(), width, height);
 		if (isSelected()) {
@@ -70,7 +71,7 @@ public class Rectangle extends Shape{
 			g.drawRect(upperLeftPoint.getXCoord() - 2, upperLeftPoint.getYCoord() + height - 2, 4, 4);
 			g.drawRect(upperLeftPoint.getXCoord() + width - 2, upperLeftPoint.getYCoord() 
 					+ height - 2, 4, 4);
-			g.setColor(Color.black);
+			g.setColor(edgeColor);
 		}
 	}
 	
