@@ -16,6 +16,7 @@ import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
 import geometry.Circle;
+import geometry.Donut;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
@@ -33,6 +34,7 @@ public class FrmDrawing extends JFrame {
 	private Point lineStartPoint = null;
 	private DlgRectangle dialogRectangle = new DlgRectangle();
 	private DlgCircle dialogCircle = new DlgCircle();
+	private DlgDonut dialogDonut = new DlgDonut();
 	private JPanel pnlDrawingArea;
 	private JPanel pnlActions;
 	private JPanel pnlTitle;
@@ -221,6 +223,29 @@ public class FrmDrawing extends JFrame {
 					}
 
 					dialogCircle.setOk(false);
+				}
+				
+				if (tglbtnDonut.isSelected()) {
+					dialogDonut.getFldX().setText(Integer.toString(e.getX()));
+					dialogDonut.getFldY().setText(Integer.toString(e.getY()));
+
+					dialogDonut.setVisible(true);
+
+					if (dialogDonut.isOk()) {
+						int x = Integer.parseInt(dialogDonut.getFldX().getText());
+						int y = Integer.parseInt(dialogDonut.getFldY().getText());
+						int outer = Integer.parseInt(dialogDonut.getFldOuterRadius().getText());
+						int inner = Integer.parseInt(dialogDonut.getFldInnerRadius().getText());
+
+						Donut donut = new Donut(new Point(x, y), outer, inner);
+						pnlDrawing.getShapes().add(donut);
+						pnlDrawing.repaint();
+
+						dialogDonut.getFldOuterRadius().setText("");
+						dialogDonut.getFldInnerRadius().setText("");
+					}
+
+					dialogDonut.setOk(false);
 				}
 
 			}
