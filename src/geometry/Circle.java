@@ -6,6 +6,7 @@ import java.awt.Graphics;
 public class Circle extends Shape{
 	private Point center;
 	private int radius;
+	private Color fillColor = Color.WHITE;
 	
 	public Circle() {
 	}
@@ -49,6 +50,9 @@ public class Circle extends Shape{
 	
 	@Override
 	public void draw(Graphics g) {
+		g.setColor(fillColor);
+		g.fillOval(center.getXCoord()-radius,
+				center.getYCoord() - radius, 2* radius, 2*radius);
 		g.setColor(edgeColor);
 		g.drawOval(center.getXCoord()-radius,
 				center.getYCoord() - radius, 2* radius, 2*radius);
@@ -96,6 +100,14 @@ public class Circle extends Shape{
 			throw new Exception("Radius ne moze biti manji od 0");
 		}
 		this.radius = radius;
+	}
+
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
 	}
 
 

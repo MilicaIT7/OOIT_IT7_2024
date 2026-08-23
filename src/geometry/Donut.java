@@ -48,6 +48,10 @@ public class Donut extends Circle {
 	
 	public void draw(Graphics g) {
 		super.draw(g);
+		g.setColor(new Color(245, 249, 253));
+		g.fillOval(getCenter().getXCoord()-innerRadius,
+				getCenter().getYCoord()-innerRadius,
+				2*innerRadius, 2*innerRadius);
 		g.setColor(edgeColor);
 		g.drawOval(getCenter().getXCoord()-innerRadius,
 				getCenter().getYCoord()-innerRadius, 

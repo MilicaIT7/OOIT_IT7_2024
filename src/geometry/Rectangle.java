@@ -7,6 +7,7 @@ public class Rectangle extends Shape{
 	private Point upperLeftPoint;
 	private int width;
 	private int height;
+	private Color fillColor = Color.WHITE;
 	
 	public Rectangle() {
 
@@ -61,6 +62,9 @@ public class Rectangle extends Shape{
 	}
 	
 	public void draw(Graphics g) {
+		g.setColor(fillColor);
+		g.fillRect(upperLeftPoint.getXCoord(),
+				upperLeftPoint.getYCoord(), width, height);
 		g.setColor(edgeColor);
 		g.drawRect(upperLeftPoint.getXCoord(),
 				upperLeftPoint.getYCoord(), width, height);
@@ -111,6 +115,14 @@ public class Rectangle extends Shape{
 	}
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
 	}
 
 	
