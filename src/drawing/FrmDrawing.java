@@ -147,6 +147,7 @@ public class FrmDrawing extends JFrame {
 						int y = Integer.parseInt(dialogPoint.getFldY().getText());
 
 						Point point = new Point(x, y);
+						point.setEdgeColor(dialogPoint.getEdgeColor());
 						pnlDrawing.getShapes().add(point);
 						pnlDrawing.repaint();
 					}
@@ -172,6 +173,7 @@ public class FrmDrawing extends JFrame {
 							int endY = Integer.parseInt(dialogLine.getFldEndY().getText());
 
 							Line line = new Line(new Point(startX, startY), new Point(endX, endY));
+							line.setEdgeColor(dialogLine.getEdgeColor());
 							pnlDrawing.getShapes().add(line);
 							pnlDrawing.repaint();
 						}
@@ -194,6 +196,8 @@ public class FrmDrawing extends JFrame {
 						int height = Integer.parseInt(dialogRectangle.getFldHeight().getText());
 
 						Rectangle rectangle = new Rectangle(new Point(x, y), width, height);
+						rectangle.setEdgeColor(dialogRectangle.getEdgeColor());
+						rectangle.setFillColor(dialogRectangle.getFillColor());
 						pnlDrawing.getShapes().add(rectangle);
 						pnlDrawing.repaint();
 
@@ -216,6 +220,8 @@ public class FrmDrawing extends JFrame {
 						int radius = Integer.parseInt(dialogCircle.getFldRadius().getText());
 
 						Circle circle = new Circle(new Point(x, y), radius);
+						circle.setEdgeColor(dialogCircle.getEdgeColor());
+						circle.setFillColor(dialogCircle.getFillColor());
 						pnlDrawing.getShapes().add(circle);
 						pnlDrawing.repaint();
 
@@ -238,6 +244,8 @@ public class FrmDrawing extends JFrame {
 						int inner = Integer.parseInt(dialogDonut.getFldInnerRadius().getText());
 
 						Donut donut = new Donut(new Point(x, y), outer, inner);
+						donut.setEdgeColor(dialogDonut.getEdgeColor());
+						donut.setFillColor(dialogDonut.getFillColor());
 						pnlDrawing.getShapes().add(donut);
 						pnlDrawing.repaint();
 
