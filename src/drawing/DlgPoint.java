@@ -10,6 +10,7 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,6 +27,8 @@ public class DlgPoint extends JDialog {
 	private JTextField fldX;
 	private JTextField fldY;
 	private boolean isOk;
+	private Color edgeColor = Color.BLACK;
+	private JButton btnEdgeColor;
 
 	/**
 	 * Launch the application.
@@ -104,6 +107,28 @@ public class DlgPoint extends JDialog {
 		gbc_fldY.gridy = 0;
 		contentPanel.add(fldY, gbc_fldY);
 		fldY.setColumns(6);
+		
+		btnEdgeColor = new JButton("Choose Color");
+		btnEdgeColor.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		btnEdgeColor.setBackground(new Color(132, 161, 196));
+		btnEdgeColor.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(95, 120, 150), 2),
+				BorderFactory.createEmptyBorder(4, 12, 4, 12)));
+		btnEdgeColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Color chosen = JColorChooser.showDialog(null, "Choose edge color", edgeColor);
+				if (chosen != null) {
+					edgeColor = chosen;
+				}
+			}
+		});
+		GridBagConstraints gbc_btnEdgeColor = new GridBagConstraints();
+		gbc_btnEdgeColor.gridwidth = 4;
+		gbc_btnEdgeColor.anchor = GridBagConstraints.EAST;
+		gbc_btnEdgeColor.insets = new Insets(70, 0, 0, 0);
+		gbc_btnEdgeColor.gridx = 0;
+		gbc_btnEdgeColor.gridy = 1;
+		contentPanel.add(btnEdgeColor, gbc_btnEdgeColor);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBackground(new Color(245, 249, 253));
@@ -182,6 +207,22 @@ public class DlgPoint extends JDialog {
 
 	public void setOk(boolean isOk) {
 		this.isOk = isOk;
+	}
+
+	public Color getEdgeColor() {
+		return edgeColor;
+	}
+
+	public void setEdgeColor(Color edgeColor) {
+		this.edgeColor = edgeColor;
+	}
+
+	public JButton getBtnEdgeColor() {
+		return btnEdgeColor;
+	}
+
+	public void setBtnEdgeColor(JButton btnEdgeColor) {
+		this.btnEdgeColor = btnEdgeColor;
 	}
 
 }

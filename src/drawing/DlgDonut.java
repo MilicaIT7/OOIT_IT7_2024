@@ -10,6 +10,7 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +29,10 @@ public class DlgDonut extends JDialog {
 	private JTextField fldOuterRadius;
 	private JTextField fldInnerRadius;
 	private boolean isOk;
+	private Color edgeColor = Color.BLACK;
+	private Color fillColor = Color.WHITE;
+	private JButton btnEdgeColor;
+	private JButton btnFillColor;
 
 	/**
 	 * Launch the application.
@@ -69,7 +74,7 @@ public class DlgDonut extends JDialog {
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		contentPanel.setLayout(gbl_contentPanel);
 
 		JLabel lblPositionSection = new JLabel("Center: ");
@@ -162,6 +167,48 @@ public class DlgDonut extends JDialog {
 		gbc_fldInnerRadius.gridy = 3;
 		contentPanel.add(fldInnerRadius, gbc_fldInnerRadius);
 		fldInnerRadius.setColumns(6);
+		
+		btnEdgeColor = new JButton("Edge Color");
+		btnEdgeColor.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		btnEdgeColor.setBackground(new Color(132, 161, 196));
+		btnEdgeColor.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(95, 120, 150), 2),
+				BorderFactory.createEmptyBorder(4, 12, 4, 12)));
+		btnEdgeColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Color chosen = JColorChooser.showDialog(null, "Choose edge color", edgeColor);
+				if (chosen != null) {
+					edgeColor = chosen;
+				}
+			}
+		});
+		GridBagConstraints gbc_btnEdgeColor = new GridBagConstraints();
+		gbc_btnEdgeColor.anchor = GridBagConstraints.EAST;
+		gbc_btnEdgeColor.insets = new Insets(20, 0, 0, 10);
+		gbc_btnEdgeColor.gridx = 2;
+		gbc_btnEdgeColor.gridy = 4;
+		contentPanel.add(btnEdgeColor, gbc_btnEdgeColor);
+
+		btnFillColor = new JButton("Fill Color");
+		btnFillColor.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		btnFillColor.setBackground(new Color(132, 161, 196));
+		btnFillColor.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(95, 120, 150), 2),
+				BorderFactory.createEmptyBorder(4, 12, 4, 12)));
+		btnFillColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Color chosen = JColorChooser.showDialog(null, "Choose fill color", fillColor);
+				if (chosen != null) {
+					fillColor = chosen;
+				}
+			}
+		});
+		GridBagConstraints gbc_btnFillColor = new GridBagConstraints();
+		gbc_btnFillColor.anchor = GridBagConstraints.EAST;
+		gbc_btnFillColor.insets = new Insets(20, 0, 0, 0);
+		gbc_btnFillColor.gridx = 3;
+		gbc_btnFillColor.gridy = 4;
+		contentPanel.add(btnFillColor, gbc_btnFillColor);
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBackground(new Color(245, 249, 253));
@@ -270,6 +317,38 @@ public class DlgDonut extends JDialog {
 
 	public void setOk(boolean isOk) {
 		this.isOk = isOk;
+	}
+
+	public Color getEdgeColor() {
+		return edgeColor;
+	}
+
+	public void setEdgeColor(Color edgeColor) {
+		this.edgeColor = edgeColor;
+	}
+
+	public Color getFillColor() {
+		return fillColor;
+	}
+
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
+	}
+
+	public JButton getBtnEdgeColor() {
+		return btnEdgeColor;
+	}
+
+	public void setBtnEdgeColor(JButton btnEdgeColor) {
+		this.btnEdgeColor = btnEdgeColor;
+	}
+
+	public JButton getBtnFillColor() {
+		return btnFillColor;
+	}
+
+	public void setBtnFillColor(JButton btnFillColor) {
+		this.btnFillColor = btnFillColor;
 	}
 
 }
