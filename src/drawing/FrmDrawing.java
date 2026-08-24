@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
@@ -24,6 +25,8 @@ import geometry.Shape;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrmDrawing extends JFrame {
 
@@ -299,6 +302,44 @@ public class FrmDrawing extends JFrame {
 		pnlActions.add(tglbtnSelect);
 
 		JButton btnModify = new JButton("Modify");
+		btnModify.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Shape selectedShape = null;
+				for (Shape shape : pnlDrawing.getShapes()) {
+					if (shape.isSelected()) {
+						selectedShape = shape;
+						break;
+					}
+				}
+
+				if (selectedShape == null) {
+					JOptionPane.showMessageDialog(null, "No shape is selected.", "Information",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				if (selectedShape instanceof Point) {
+					Point point = (Point) selectedShape;
+
+					dialogPoint.getFldX().setText(Integer.toString(point.getXCoord()));
+					dialogPoint.getFldY().setText(Integer.toString(point.getYCoord()));
+
+					dialogPoint.setVisible(true);
+
+					if (dialogPoint.isOk()) {
+						int x = Integer.parseInt(dialogPoint.getFldX().getText());
+						int y = Integer.parseInt(dialogPoint.getFldY().getText());
+
+						point.setXCoord(x);
+						point.setYCoord(y);
+						point.setEdgeColor(dialogPoint.getEdgeColor());
+						pnlDrawing.repaint();
+					}
+
+					dialogPoint.setOk(false);
+				}
+			}
+		});
 		btnModify.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		btnModify.setBackground(new Color(132, 161, 196));
 		btnModify.setBorder(BorderFactory.createCompoundBorder(
