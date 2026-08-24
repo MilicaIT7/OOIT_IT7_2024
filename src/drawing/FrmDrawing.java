@@ -20,6 +20,7 @@ import geometry.Donut;
 import geometry.Line;
 import geometry.Point;
 import geometry.Rectangle;
+import geometry.Shape;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -130,6 +131,14 @@ public class FrmDrawing extends JFrame {
 				BorderFactory.createEmptyBorder(4, 12, 4, 12)));
 		buttonGroup.add(tglbtnDonut);
 		pnlShapes.add(tglbtnDonut);
+		
+		JToggleButton tglbtnSelect = new JToggleButton("Select");
+		tglbtnSelect.setFont(new Font("Times New Roman", Font.BOLD, 12));
+		tglbtnSelect.setBackground(new Color(132, 161, 196));
+		tglbtnSelect.setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(new Color(95, 120, 150), 2),
+				BorderFactory.createEmptyBorder(4, 12, 4, 12)));
+		buttonGroup.add(tglbtnSelect);
 		
 		PnlDrawing pnlDrawing = new PnlDrawing();
 		pnlDrawing.addMouseListener(new MouseAdapter() {
@@ -255,6 +264,28 @@ public class FrmDrawing extends JFrame {
 
 					dialogDonut.setOk(false);
 				}
+				
+				if (tglbtnSelect.isSelected()) {
+					int clickedIndex = -1;
+					for (int i = pnlDrawing.getShapes().size() - 1; i >= 0; i--) {
+						if (pnlDrawing.getShapes().get(i).contains(e.getX(), e.getY())) {
+							clickedIndex = i;
+							break;
+						}
+					}
+
+					boolean wasSelected = clickedIndex != -1 && pnlDrawing.getShapes().get(clickedIndex).isSelected();
+
+					for (Shape shape : pnlDrawing.getShapes()) {
+						shape.setSelected(false);
+					}
+
+					if (clickedIndex != -1 && wasSelected == false) {
+						pnlDrawing.getShapes().get(clickedIndex).setSelected(true);
+					}
+
+					pnlDrawing.repaint();
+				}
 
 			}
 		});
@@ -265,13 +296,7 @@ public class FrmDrawing extends JFrame {
 		pnlActions.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.add(pnlActions, BorderLayout.SOUTH);
 
-		JButton btnSelect = new JButton("Select");
-		btnSelect.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		btnSelect.setBackground(new Color(132, 161, 196));
-		btnSelect.setBorder(BorderFactory.createCompoundBorder(
-				BorderFactory.createLineBorder(new Color(95, 120, 150), 2),
-				BorderFactory.createEmptyBorder(4, 12, 4, 12)));
-		pnlActions.add(btnSelect);
+		pnlActions.add(tglbtnSelect);
 
 		JButton btnModify = new JButton("Modify");
 		btnModify.setFont(new Font("Times New Roman", Font.BOLD, 12));
