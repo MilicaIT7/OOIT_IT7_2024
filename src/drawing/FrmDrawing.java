@@ -365,6 +365,34 @@ public class FrmDrawing extends JFrame {
 
 					dialogLine.setOk(false);
 				}
+				
+				if (selectedShape instanceof Rectangle) {
+					Rectangle rectangle = (Rectangle) selectedShape;
+
+					dialogRectangle.getFldX().setText(Integer.toString(rectangle.getUpperLeftPoint().getXCoord()));
+					dialogRectangle.getFldY().setText(Integer.toString(rectangle.getUpperLeftPoint().getYCoord()));
+					dialogRectangle.getFldWidth().setText(Integer.toString(rectangle.getWidth()));
+					dialogRectangle.getFldHeight().setText(Integer.toString(rectangle.getHeight()));
+
+					dialogRectangle.setVisible(true);
+
+					if (dialogRectangle.isOk()) {
+						int x = Integer.parseInt(dialogRectangle.getFldX().getText());
+						int y = Integer.parseInt(dialogRectangle.getFldY().getText());
+						int width = Integer.parseInt(dialogRectangle.getFldWidth().getText());
+						int height = Integer.parseInt(dialogRectangle.getFldHeight().getText());
+
+						rectangle.getUpperLeftPoint().setXCoord(x);
+						rectangle.getUpperLeftPoint().setYCoord(y);
+						rectangle.setWidth(width);
+						rectangle.setHeight(height);
+						rectangle.setEdgeColor(dialogRectangle.getEdgeColor());
+						rectangle.setFillColor(dialogRectangle.getFillColor());
+						pnlDrawing.repaint();
+					}
+
+					dialogRectangle.setOk(false);
+				}
 			}
 		});
 		btnModify.setFont(new Font("Times New Roman", Font.BOLD, 12));
