@@ -393,6 +393,37 @@ public class FrmDrawing extends JFrame {
 
 					dialogRectangle.setOk(false);
 				}
+				
+				if (selectedShape instanceof Circle) {
+					Circle circle = (Circle) selectedShape;
+
+					dialogCircle.getFldX().setText(Integer.toString(circle.getCenter().getXCoord()));
+					dialogCircle.getFldY().setText(Integer.toString(circle.getCenter().getYCoord()));
+					dialogCircle.getFldRadius().setText(Integer.toString(circle.getRadius()));
+
+					dialogCircle.setVisible(true);
+
+					if (dialogCircle.isOk()) {
+						int x = Integer.parseInt(dialogCircle.getFldX().getText());
+						int y = Integer.parseInt(dialogCircle.getFldY().getText());
+						int radius = Integer.parseInt(dialogCircle.getFldRadius().getText());
+
+						circle.getCenter().setXCoord(x);
+						circle.getCenter().setYCoord(y);
+						try {
+							circle.setRadius(radius);
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, ex.getMessage(), "Invalid input",
+									JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						circle.setEdgeColor(dialogCircle.getEdgeColor());
+						circle.setFillColor(dialogCircle.getFillColor());
+						pnlDrawing.repaint();
+					}
+
+					dialogCircle.setOk(false);
+				}
 			}
 		});
 		btnModify.setFont(new Font("Times New Roman", Font.BOLD, 12));
