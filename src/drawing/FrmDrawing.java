@@ -338,6 +338,33 @@ public class FrmDrawing extends JFrame {
 
 					dialogPoint.setOk(false);
 				}
+				
+				if (selectedShape instanceof Line) {
+					Line line = (Line) selectedShape;
+
+					dialogLine.getFldStartX().setText(Integer.toString(line.getStartPoint().getXCoord()));
+					dialogLine.getFldStartY().setText(Integer.toString(line.getStartPoint().getYCoord()));
+					dialogLine.getFldEndX().setText(Integer.toString(line.getEndPoint().getXCoord()));
+					dialogLine.getFldEndY().setText(Integer.toString(line.getEndPoint().getYCoord()));
+
+					dialogLine.setVisible(true);
+
+					if (dialogLine.isOk()) {
+						int startX = Integer.parseInt(dialogLine.getFldStartX().getText());
+						int startY = Integer.parseInt(dialogLine.getFldStartY().getText());
+						int endX = Integer.parseInt(dialogLine.getFldEndX().getText());
+						int endY = Integer.parseInt(dialogLine.getFldEndY().getText());
+
+						line.getStartPoint().setXCoord(startX);
+						line.getStartPoint().setYCoord(startY);
+						line.getEndPoint().setXCoord(endX);
+						line.getEndPoint().setYCoord(endY);
+						line.setEdgeColor(dialogLine.getEdgeColor());
+						pnlDrawing.repaint();
+					}
+
+					dialogLine.setOk(false);
+				}
 			}
 		});
 		btnModify.setFont(new Font("Times New Roman", Font.BOLD, 12));
