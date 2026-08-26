@@ -468,6 +468,34 @@ public class FrmDrawing extends JFrame {
 		pnlActions.add(btnModify);
 
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Shape selectedShape = null;
+				for (Shape shape : pnlDrawing.getShapes()) {
+					if (shape.isSelected()) {
+						selectedShape = shape;
+						break;
+					}
+				}
+
+				if (selectedShape == null) {
+					JOptionPane.showMessageDialog(null, "No shape is selected.", "Information",
+							JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+
+				if (selectedShape instanceof Point) {
+					int confirm = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to delete this point?", "Confirm deletion",
+							JOptionPane.YES_NO_OPTION);
+					if (confirm == JOptionPane.YES_OPTION) {
+						pnlDrawing.getShapes().remove(selectedShape);
+						pnlDrawing.repaint();
+					}
+				}
+			}
+		});
 		btnDelete.setFont(new Font("Times New Roman", Font.BOLD, 12));
 		btnDelete.setBackground(new Color(132, 161, 196));
 		btnDelete.setBorder(BorderFactory.createCompoundBorder(
