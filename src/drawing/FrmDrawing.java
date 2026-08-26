@@ -318,7 +318,7 @@ public class FrmDrawing extends JFrame {
 					return;
 				}
 
-				if (selectedShape instanceof Point) {
+				else if (selectedShape instanceof Point) {
 					Point point = (Point) selectedShape;
 
 					dialogPoint.getFldX().setText(Integer.toString(point.getXCoord()));
@@ -339,7 +339,7 @@ public class FrmDrawing extends JFrame {
 					dialogPoint.setOk(false);
 				}
 				
-				if (selectedShape instanceof Line) {
+				else if (selectedShape instanceof Line) {
 					Line line = (Line) selectedShape;
 
 					dialogLine.getFldStartX().setText(Integer.toString(line.getStartPoint().getXCoord()));
@@ -366,7 +366,7 @@ public class FrmDrawing extends JFrame {
 					dialogLine.setOk(false);
 				}
 				
-				if (selectedShape instanceof Rectangle) {
+				else if (selectedShape instanceof Rectangle) {
 					Rectangle rectangle = (Rectangle) selectedShape;
 
 					dialogRectangle.getFldX().setText(Integer.toString(rectangle.getUpperLeftPoint().getXCoord()));
@@ -394,7 +394,41 @@ public class FrmDrawing extends JFrame {
 					dialogRectangle.setOk(false);
 				}
 				
-				if (selectedShape instanceof Circle) {
+				else if (selectedShape instanceof Donut) {
+					Donut donut = (Donut) selectedShape;
+
+					dialogDonut.getFldX().setText(Integer.toString(donut.getCenter().getXCoord()));
+					dialogDonut.getFldY().setText(Integer.toString(donut.getCenter().getYCoord()));
+					dialogDonut.getFldOuterRadius().setText(Integer.toString(donut.getRadius()));
+					dialogDonut.getFldInnerRadius().setText(Integer.toString(donut.getInnerRadius()));
+
+					dialogDonut.setVisible(true);
+
+					if (dialogDonut.isOk()) {
+						int x = Integer.parseInt(dialogDonut.getFldX().getText());
+						int y = Integer.parseInt(dialogDonut.getFldY().getText());
+						int outer = Integer.parseInt(dialogDonut.getFldOuterRadius().getText());
+						int inner = Integer.parseInt(dialogDonut.getFldInnerRadius().getText());
+
+						donut.getCenter().setXCoord(x);
+						donut.getCenter().setYCoord(y);
+						try {
+							donut.setRadius(outer);
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, ex.getMessage(), "Invalid input",
+									JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						donut.setInnerRadius(inner);
+						donut.setEdgeColor(dialogDonut.getEdgeColor());
+						donut.setFillColor(dialogDonut.getFillColor());
+						pnlDrawing.repaint();
+					}
+
+					dialogDonut.setOk(false);
+				}
+				
+				else if (selectedShape instanceof Circle) {
 					Circle circle = (Circle) selectedShape;
 
 					dialogCircle.getFldX().setText(Integer.toString(circle.getCenter().getXCoord()));
