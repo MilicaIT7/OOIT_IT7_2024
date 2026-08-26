@@ -504,6 +504,16 @@ public class FrmDrawing extends JFrame {
 						pnlDrawing.repaint();
 					}
 				}
+				
+				if (selectedShape instanceof Rectangle) {
+					int confirm = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to delete this rectangle?", "Confirm deletion",
+							JOptionPane.YES_NO_OPTION);
+					if (confirm == JOptionPane.YES_OPTION) {
+						pnlDrawing.getShapes().remove(selectedShape);
+						pnlDrawing.repaint();
+					}
+				}
 			}
 		});
 		btnDelete.setFont(new Font("Times New Roman", Font.BOLD, 12));
