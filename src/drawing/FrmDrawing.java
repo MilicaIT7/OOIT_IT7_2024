@@ -151,6 +151,8 @@ public class FrmDrawing extends JFrame {
 				if (tglbtnPoint.isSelected()) {
 					dialogPoint.getFldX().setText(Integer.toString(e.getX()));
 					dialogPoint.getFldY().setText(Integer.toString(e.getY()));
+					dialogPoint.getFldX().setEnabled(false);
+					dialogPoint.getFldY().setEnabled(false);
 
 					dialogPoint.setVisible(true);
 
@@ -175,6 +177,10 @@ public class FrmDrawing extends JFrame {
 						dialogLine.getFldStartY().setText(Integer.toString(lineStartPoint.getYCoord()));
 						dialogLine.getFldEndX().setText(Integer.toString(e.getX()));
 						dialogLine.getFldEndY().setText(Integer.toString(e.getY()));
+						dialogLine.getFldStartX().setEnabled(false);
+						dialogLine.getFldStartY().setEnabled(false);
+						dialogLine.getFldEndX().setEnabled(false);
+						dialogLine.getFldEndY().setEnabled(false);
 
 						dialogLine.setVisible(true);
 
@@ -198,6 +204,8 @@ public class FrmDrawing extends JFrame {
 				if (tglbtnRectangle.isSelected()) {
 					dialogRectangle.getFldX().setText(Integer.toString(e.getX()));
 					dialogRectangle.getFldY().setText(Integer.toString(e.getY()));
+					dialogRectangle.getFldX().setEnabled(false);
+					dialogRectangle.getFldY().setEnabled(false);
 
 					dialogRectangle.setVisible(true);
 
@@ -223,6 +231,8 @@ public class FrmDrawing extends JFrame {
 				if (tglbtnCircle.isSelected()) {
 					dialogCircle.getFldX().setText(Integer.toString(e.getX()));
 					dialogCircle.getFldY().setText(Integer.toString(e.getY()));
+					dialogCircle.getFldX().setEnabled(false);
+					dialogCircle.getFldY().setEnabled(false);
 
 					dialogCircle.setVisible(true);
 
@@ -246,6 +256,8 @@ public class FrmDrawing extends JFrame {
 				if (tglbtnDonut.isSelected()) {
 					dialogDonut.getFldX().setText(Integer.toString(e.getX()));
 					dialogDonut.getFldY().setText(Integer.toString(e.getY()));
+					dialogDonut.getFldX().setEnabled(false);
+					dialogDonut.getFldY().setEnabled(false);
 
 					dialogDonut.setVisible(true);
 
@@ -323,6 +335,8 @@ public class FrmDrawing extends JFrame {
 
 					dialogPoint.getFldX().setText(Integer.toString(point.getXCoord()));
 					dialogPoint.getFldY().setText(Integer.toString(point.getYCoord()));
+					dialogPoint.getFldX().setEnabled(true);
+					dialogPoint.getFldY().setEnabled(true);
 
 					dialogPoint.setVisible(true);
 
@@ -346,6 +360,10 @@ public class FrmDrawing extends JFrame {
 					dialogLine.getFldStartY().setText(Integer.toString(line.getStartPoint().getYCoord()));
 					dialogLine.getFldEndX().setText(Integer.toString(line.getEndPoint().getXCoord()));
 					dialogLine.getFldEndY().setText(Integer.toString(line.getEndPoint().getYCoord()));
+					dialogLine.getFldStartX().setEnabled(true);
+					dialogLine.getFldStartY().setEnabled(true);
+					dialogLine.getFldEndX().setEnabled(true);
+					dialogLine.getFldEndY().setEnabled(true);
 
 					dialogLine.setVisible(true);
 
@@ -371,6 +389,8 @@ public class FrmDrawing extends JFrame {
 
 					dialogRectangle.getFldX().setText(Integer.toString(rectangle.getUpperLeftPoint().getXCoord()));
 					dialogRectangle.getFldY().setText(Integer.toString(rectangle.getUpperLeftPoint().getYCoord()));
+					dialogRectangle.getFldX().setEnabled(true);
+					dialogRectangle.getFldY().setEnabled(true);
 					dialogRectangle.getFldWidth().setText(Integer.toString(rectangle.getWidth()));
 					dialogRectangle.getFldHeight().setText(Integer.toString(rectangle.getHeight()));
 
@@ -401,6 +421,8 @@ public class FrmDrawing extends JFrame {
 					dialogDonut.getFldY().setText(Integer.toString(donut.getCenter().getYCoord()));
 					dialogDonut.getFldOuterRadius().setText(Integer.toString(donut.getRadius()));
 					dialogDonut.getFldInnerRadius().setText(Integer.toString(donut.getInnerRadius()));
+					dialogDonut.getFldX().setEnabled(true);
+					dialogDonut.getFldY().setEnabled(true);
 
 					dialogDonut.setVisible(true);
 
@@ -433,6 +455,8 @@ public class FrmDrawing extends JFrame {
 
 					dialogCircle.getFldX().setText(Integer.toString(circle.getCenter().getXCoord()));
 					dialogCircle.getFldY().setText(Integer.toString(circle.getCenter().getYCoord()));
+					dialogCircle.getFldX().setEnabled(true);
+					dialogCircle.getFldY().setEnabled(true);
 					dialogCircle.getFldRadius().setText(Integer.toString(circle.getRadius()));
 
 					dialogCircle.setVisible(true);
